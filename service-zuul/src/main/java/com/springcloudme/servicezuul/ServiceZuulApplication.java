@@ -22,7 +22,7 @@ public class ServiceZuulApplication {
 	private Environment environment;
 
 	/**
-	 * 2. 通过注入Environment获取值
+	 * 通过注入Environment获取值
 	 */
 	public void getAttrByEnvironment() {
 		String property = environment.getProperty(SPRING_BOOT_HELLO);
