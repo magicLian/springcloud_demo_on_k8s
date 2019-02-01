@@ -31,8 +31,8 @@ public class ServiceZuulApplication {
 
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext applicationContext = SpringApplication.run(ServiceZuulApplication.class, args);
-		ServiceZuulApplication bean = applicationContext.getBean(ServiceZuulApplication.class);
+		ConfigurableApplicationContext atx = SpringApplication.run(ServiceZuulApplication.class, args);
+		ServiceZuulApplication bean = atx.getBean(ServiceZuulApplication.class);
 		bean.getAttrByEnvironment();
 	}
 }
