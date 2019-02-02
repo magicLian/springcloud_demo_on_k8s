@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-zuul
+spec:
+  selector:
+    matchLabels:
+      app: springcloud-service-zuul
+
+  replicas: 1
+
+  template:
+    metadata:
+      labels:
+        app: springcloud-service-zuul
+    spec:
+      containers:
+       - name: service-zuul-instance
+         image: registry.cn-hangzhou.aliyuncs.com/magiclian/service-zuul:v3
+         env:
+         - name: EUREKA_URL
+           value: eureka-server
+         ports:
+         - containerPort: 8762
+
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-zuul
+spec:
+  selector:
+    app: springcloud-service-zuul
+  ports:
+  - protocol: TCP
+    port: 8762
+    targetPort: 8762
+  type: NodePort
+
+
+

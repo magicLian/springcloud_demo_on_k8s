@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-api
+spec:
+  selector:
+    matchLabels:
+      app: springcloud-service-api
+
+  replicas: 1
+
+  template:
+    metadata:
+      labels:
+        app: springcloud-service-api
+    spec:
+      containers:
+       - name: service-api-instance
+         image: registry.cn-hangzhou.aliyuncs.com/magiclian/service-api:v4
+         env:
+         - name: EUREKA_URL
+           value: eureka-server
+         ports:
+         - containerPort: 8764
+
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-api
+spec:
+  selector:
+    app: springcloud-service-api
+  ports:
+  - protocol: TCP
+    port: 8764
+    targetPort: 8764
+  #type: NodePort
+
+
