@@ -10,6 +10,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/magicLian/springcloud_demo_on_k8s/
+          uri: https://github.com/magicLian/springcloud_demo_on_k8s.git
           search-paths: adminConfig
-      label: master
+#          username: *************
+#          password: *************
