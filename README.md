@@ -1,6 +1,5 @@
 # springcloud-demo-on-k8s
 
-*****
 ### Prepare
 * Java 1.8
 * Spring boot 2.0.3 RELEASE
