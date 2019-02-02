@@ -27,7 +27,7 @@
 
 ### Deploy
 
-`kubectl create/apply -f <xxx>.yaml`
+`kubectl create/apply -f deploy-file/<xxx>.yaml`
 
 `kubectl get/delete deploy,pod,svc --all-namespaces/-n default`
 
