@@ -1,0 +1,15 @@
+
+server:
+  port: 8765
+
+spring:
+  application:
+    name: config-server
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/magicLian/springcloud_demo_on_k8s/
+          search-paths: adminConfig
+      label: master
