@@ -1,0 +1,25 @@
+server:
+  port: 8763
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_URL:localhost}:8761/eureka
+
+spring:
+  application:
+    name: service-tp
+  resources:
+    static-locations: classpath:/static
+  freemarker:
+    template-loader-path: classpath:/static
+    cache: false
+    charset: utf-8
+    check-template-location: true
+    content-type: text/html
+    expose-request-attributes: false
+    expose-session-attributes: false
+    request-context-attribute: request
+    suffix: .html

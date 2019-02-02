@@ -14,11 +14,10 @@ eureka:
 
 zuul:
   routes:
-    api-a:
+    service-tp:
       path: /service-tp/**
       serviceId: service-tp
-
-    api-b:
+    service-api:
       path: /service-api/**
       serviceId: service-api
 

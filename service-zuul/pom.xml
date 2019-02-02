@@ -64,7 +64,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.2.0</version>
                 <configuration>
-                    <imageName>registry.cn-hangzhou.aliyuncs.com/magiclian/service-zuul:v2</imageName>
+                    <imageName>registry.cn-hangzhou.aliyuncs.com/magiclian/service-zuul:v3</imageName>
                     <serverId>my-docker-registry</serverId>
                     <baseImage>java</baseImage>
                     <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
