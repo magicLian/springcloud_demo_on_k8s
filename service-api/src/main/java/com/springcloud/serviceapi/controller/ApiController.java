@@ -14,11 +14,11 @@ public class ApiController {
 		return "I'm in! new Api server";
 	}
 
-	@Value("${foo}")
-	String foo;
+	@Value("${common.db_driver}")
+	String db_driver;
 
 	@RequestMapping(value = "/hi")
 	public String hi(){
-		return foo;
+		return db_driver;
 	}
 }

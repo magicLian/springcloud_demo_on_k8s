@@ -1,2 +1,7 @@
-foo:  33
+common:
+  db_driver:  com.mysql.xxx
+
+service_api:
+  aaa:
+    bbbb: 333
 
