@@ -1,5 +1,5 @@
 common:
-  db_driver:  com.pg.xxx
+  db_driver:  com.pgz.xxx
 
 service_api:
   aaa:
