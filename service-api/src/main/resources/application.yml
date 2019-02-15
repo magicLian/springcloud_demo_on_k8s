@@ -11,3 +11,9 @@ eureka:
 spring:
   application:
     name: service-api
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: guest
+    password: guest

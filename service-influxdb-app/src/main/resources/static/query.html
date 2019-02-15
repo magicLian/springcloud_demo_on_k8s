@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <#assign basePath=request.contextPath>
+    <title>Influxdb-Query</title>
+    <script type="application/javascript" src="${basePath}/js/jquery.min.js"></script>
+</head>
+<body>
+
+    <textarea id="t" cols="30" rows="10"></textarea>
+    <input type="button" style="width: 200px;height: 50px;" value="执行" onclick="query();"/>
+
+    <span id="result"></span>
+
+</body>
+<script>
+    function query() {
+        var textQuery = $("#t").val();
+
+        $.ajax({
+            url: '${basePath}/influxdb/query',
+            type : 'Post',
+            data:{
+                sql : textQuery
+            }
+        }).fail(function () {
+
+        }).done(function (result) {
+            $("#result").text(JSON.stringify(result.result));
+        })
+    }
+</script>
+</html>
