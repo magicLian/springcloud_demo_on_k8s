@@ -1,7 +1,7 @@
 common:
-  db_driver:  com.mysql.xxx
+  db_driver:  com.pgzzzzzzzzzzzzzzzz.xxx77
 
 service_api:
   aaa:
-    bbbb: 333
+    bbbb: 333555
 

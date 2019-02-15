@@ -41,7 +41,7 @@
 	
 ### Test
 
-check the services whether join in eureka-server and config-server runs well.
+Check the other services whether join in eureka-server and make sure the config-server runs well. 
 
 	eureka-server portal test : http://IP:Port
 	
