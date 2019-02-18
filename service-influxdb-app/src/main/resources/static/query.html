@@ -5,13 +5,37 @@
     <#assign basePath=request.contextPath>
     <title>Influxdb-Query</title>
     <script type="application/javascript" src="${basePath}/js/jquery.min.js"></script>
+    <script type="application/javascript" src="${basePath}/layui/layui.all.js"></script>
+    <link rel="stylesheet" href="${basePath}/layui/css/layui.css"/>
 </head>
-<body>
+<body style="padding: 20px;">
+    <blockquote class="layui-elem-quote layui-quote-nm">查询</blockquote>
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md4">
+                <textarea id="t" cols="30" rows="10" class="layui-textarea"></textarea>
+            </div>
+            <div class="layui-col-md4">
+                <button class="layui-btn" onclick="query();">查询</button>
+            </div>
+            <div class="layui-col-md4">
+                <span id="result1" style="width: 100%;height: 100%"></span>
+            </div>
+        </div>
+    </div>
 
-    <textarea id="t" cols="30" rows="10"></textarea>
-    <input type="button" style="width: 200px;height: 50px;" value="执行" onclick="query();"/>
+    <blockquote class="layui-elem-quote layui-quote-nm">插入</blockquote>
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md6">
+                <button class="layui-btn" onclick="insert();">插入</button>
+            </div>
+            <div class="layui-col-md6">
+                <span id="result2" style="width: 100%;height: 100%"></span>
+            </div>
+        </div>
+    </div>
 
-    <span id="result"></span>
 
 </body>
 <script>
@@ -27,7 +51,18 @@
         }).fail(function () {
 
         }).done(function (result) {
-            $("#result").text(JSON.stringify(result.result));
+            $("#result1").text(JSON.stringify(result.result));
+        })
+    }
+
+    function insert() {
+        $.ajax({
+            url: '${basePath}/influxdb/insert',
+            type : 'Post'
+        }).fail(function () {
+
+        }).done(function (result) {
+            $("#result2").text(JSON.stringify(result.result));
         })
     }
 </script>

@@ -5,6 +5,8 @@ import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.Point;
 import org.influxdb.dto.Query;
 import org.influxdb.dto.QueryResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -15,6 +17,8 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class InfluxDBUtils {
+
+	private static Logger log = LoggerFactory.getLogger(InfluxDBUtils.class);
 
 	private static String host;
 
@@ -31,9 +35,9 @@ public class InfluxDBUtils {
 	private InfluxDB instance1;
 
 	@Autowired
-	InfluxDBUtils(@Value("${aaa.host}") String host,@Value("${aaa.port}") String port,
-				  @Value("${aaa.uri}") String uri,@Value("${aaa.db}") String db,
-				  @Value("${aaa.username}") String username,@Value("${aaa.password}") String password){
+	InfluxDBUtils(@Value("${influxdb.host}") String host,@Value("${influxdb.port}") String port,
+				  @Value("${influxdb.uri}") String uri,@Value("${influxdb.db}") String db,
+				  @Value("${influxdb.username}") String username,@Value("${influxdb.password}") String password){
 		this.host = host;
 		this.port = port;
 		this.uri = uri;
@@ -57,13 +61,14 @@ public class InfluxDBUtils {
 		}
 	}
 
-	public Map<String,Object> exec(InfluxDB instance, String sql){
+	public Map<String,Object> insert(InfluxDB instance){
+		log.info("in util exec");
+		log.info("host="+host+",port="+port+",db="+db+",password="+password+",user="+username+",uri="+uri);
+
 		Map<String,Object> result = new HashMap<>();
 		try {
 			String rpName = "aRetentionPolicy";
 			instance.createRetentionPolicy(rpName, db, "30d", "30m", 2, true);
-//			Query query = new Query(sql,db);
-			//instance.write(sql);
 
 			Point point2 = Point.measurement("disk")
 					.time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
@@ -71,18 +76,46 @@ public class InfluxDBUtils {
 					.addField("free", 1L)
 					.build();
 
+			log.info("instance",instance);
+
 			instance.write(db,rpName , point2);
 
 			result.put("result",null);
+
 			return result;
 		}catch (Exception e){
 			e.printStackTrace();
 			result.put("result",e.getMessage());
 			return result;
+		}finally {
+			close();
 		}
 	}
 
-	private  InfluxDB connect(){
+	public Map<String,Object> query(InfluxDB instance, String sql){
+		log.info("in util exec");
+		log.info("host="+host+",port="+port+",db="+db+",password="+password+",user="+username+",uri="+uri);
+
+		Map<String,Object> result = new HashMap<>();
+		try {
+			String rpName = "aRetentionPolicy";
+			instance.createRetentionPolicy(rpName, db, "30d", "30m", 2, true);
+			Query query = new Query(sql,db);
+
+			QueryResult query1 = instance.query(query);
+
+			result.put("result",query1);
+			return result;
+		}catch (Exception e){
+			e.printStackTrace();
+			result.put("result",e.getMessage());
+			return result;
+		}finally {
+			close();
+		}
+	}
+
+	private InfluxDB connect(){
 		try {
 			return InfluxDBFactory.connect(uri,username,password);
 		}catch (Exception e){
@@ -91,7 +124,7 @@ public class InfluxDBUtils {
 		}
 	}
 
-	public void close(){
+	private void close(){
 		try {
 			InfluxDB instance = getInstance();
 			instance.close();

@@ -17,7 +17,14 @@ spring:
     request-context-attribute: request
     suffix: .html
 
-aaa:
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_URL:localhost}:8761/eureka
+
+influxdb:
   host: ${INFLUXDB_HOST:172.21.81.42}
   port: ${INFLUXDB_PORT:31639}
   uri: ${INFLUXDB_URI:http://172.21.81.42:31639}
